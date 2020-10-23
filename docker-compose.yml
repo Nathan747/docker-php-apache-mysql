@@ -1,8 +1,31 @@
 version: '3.1'
 
 services:
-  php:
 
-  apache:
+  mi_mysql:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=uno
+      - MYSQL_ROOT_PASSWORD=master@2020
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=master@2020
+    volumes:
+      - ./volumenes/mysql:/var/lib/mysql
+    expose:
+      - 3306
+    ports:
+      - 3306:3306
 
-  mysql:
+
+
+  php_apache:
+    image: php:7.2-apache
+    volumes:
+      - ./miweb/:/var/www/html
+    expose:
+      - 80
+    ports:
+      - 8080:80
+    links: 
+      - mi_mysql
+
